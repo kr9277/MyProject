@@ -21,7 +21,7 @@ public class Family {
         this.name = name;
     }
 
-    public String getfId(){
+    public String getFId(){
         return fId;
     }
     public String getPass(){
@@ -30,7 +30,7 @@ public class Family {
     public ArrayList<String> getTaskTypes(){
         return taskTypes;
     }
-    public ArrayList<String> getuIds(){
+    public ArrayList<String> getUIds(){
         return uIds;
         }
     public String getAddress(){
@@ -43,7 +43,7 @@ public class Family {
     public void addMember(String uId){
         uIds.add(uId);
     }
-    public void setfId(String fId){
+    public void setFId(String fId){
         this.fId = fId;
     }
     public void setPass(String pass){
@@ -52,7 +52,7 @@ public class Family {
     public void setTaskTypes(ArrayList<String> taskTypes){
         this.taskTypes = taskTypes;
     }
-    public void setuIds(ArrayList<String> uIds){
+    public void setUIds(ArrayList<String> uIds){
         this.uIds = uIds;
         }
     public void setAddress(String address){

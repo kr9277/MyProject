@@ -43,14 +43,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     SharedPreferences settings;
     String uId;
+    String fId;
     boolean parent = false;
     int points = 0;
     public static User user;
     public static Family family;
-    ArrayList<String> uIdsThis = new ArrayList<String>();
+    ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
     ArrayList<String> taskTypes = new ArrayList<String>();
-    ArrayList<String> familiesFoundName;
-    ArrayList<String> familiesFoundAddress;
     ArrayList<String> familiesFoundList;
     ArrayList<Family> familiesValue;
 
@@ -75,14 +74,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lv = findViewById(R.id.lv);
         tvCFM = findViewById(R.id.tvC);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        familiesFoundName = new ArrayList<String>();
-        familiesFoundAddress = new ArrayList<String>();
-        familiesFoundList = new ArrayList<String>();
-        familiesValue = new ArrayList<Family>();
+        familiesFoundList = new ArrayList<String>();//both together
+        familiesValue = new ArrayList<Family>();//ids of the families found?
     }
     public void next(View view){
         Log.i("nextStart", "nextStart");
-        if(sw2.isChecked()){ //shered preference
+        if(sw2.isChecked()){ //shared preference
 
         }
         String name = etN.getText().toString();
@@ -93,8 +90,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             tvMsg.setText("Please fill all fields");
         }
         else{
-            Log.i("regstart", "regstart");
-            ProgressDialog pd = new ProgressDialog(this);
+            Log.i("got the fields", "got the fields");
+            ProgressDialog pd = new ProgressDialog(this);//show message to the user
             pd.setTitle("Connecting");
             pd.setMessage("Creating user...");
             pd.show();
@@ -104,33 +101,30 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             pd.dismiss();
                             if (task.isSuccessful()) {
-                                Log.i("regsuc", "regsuc");
+                                Log.i("user is in the firebase", "user is in the firebase");
                                 Log.i("MainActivity", "createUserWithEmailAndPassword:success");
                                 uId = refAuth.getCurrentUser().getUid();
                                 if(!sw1.isChecked()) {
                                     parent = true;
                                 }
                                 user = new User(name, password, parent, points, uId);
-                                refUser.child(uId).setValue(user);
+                                refUser.child(uId).setValue(user);//user is in the users tree in the firebase
                                 tvMsg.setText("User created successfully\nUid: "+uId);
                                 if(parent){
-                                    Family family = new Family(address, user.getuId(), password, name);
-                                    String fId = refFamily.push().getKey();
-                                    family.setfId(fId);
+                                    Family family = new Family(address, uId, password, name);
+                                    fId = refFamily.push().getKey();
                                     refFamily.child(fId).setValue(family);
                                     tvMsg.setText("Family created successfully\nFid: "+fId);
                                 }
                                 else {
-                                    Query query = refFamily.orderByChild("pass").equalTo(password);
+                                    Query query = refFamily.orderByChild("pass").equalTo(password); //
                                     query.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull com.google.android.gms.tasks.Task<DataSnapshot> task) {
                                             if(task.isSuccessful()){
-                                                Log.i("zf","ffound");
+                                                Log.i("taskSuccess","taskSuccess");
                                                 DataSnapshot dS = task.getResult();
                                                 //read in a loop all the families found
-                                                familiesFoundName.clear();
-                                                familiesFoundAddress.clear();
                                                 familiesFoundList.clear();
                                                 familiesValue.clear();
                                                 String stName = "";
@@ -183,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lv.setOnItemClickListener(this);
         family = familiesValue.get(i);
         family.addMember(user.getuId());
-        refFamily.child(family.getfId()).setValue(family);
+        refFamily.child(family.getFId()).setValue(family);
 
     }
 
