@@ -3,8 +3,9 @@ package com.example.myproject;
 import java.util.ArrayList;
 
 public class Family {
+
+    private String createdBy;
     private String fId;
-    private String pass;
     private ArrayList<String> taskTypes;
     private ArrayList<String> uIds;
     private String address;
@@ -13,19 +14,19 @@ public class Family {
     public Family(){
     }
 
-    public Family(String address, String uId, String pass, String name){
+    public Family(String address, String uId, String createdBy, String name){
         this.address = address;
         this.uIds = new ArrayList<>();
         uIds.add(uId);
-        this.pass = pass;
+        this.createdBy = createdBy;
         this.name = name;
     }
 
     public String getFId(){
         return fId;
     }
-    public String getPass(){
-        return pass;
+    public String getCreatedBy(){
+        return createdBy;
     }
     public ArrayList<String> getTaskTypes(){
         return taskTypes;
@@ -46,8 +47,8 @@ public class Family {
     public void setFId(String fId){
         this.fId = fId;
     }
-    public void setPass(String pass){
-        this.pass = pass;
+    public void setCreatedBy(String createdBy){
+        this.createdBy = createdBy;
     }
     public void setTaskTypes(ArrayList<String> taskTypes){
         this.taskTypes = taskTypes;

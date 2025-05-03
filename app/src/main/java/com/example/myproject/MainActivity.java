@@ -82,9 +82,4 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-
-    //password check, javadoc
-    //public void next(View view){
-        //ויוזר ליצור שורש של המשפחה אם זה הורה
-    //}
 }

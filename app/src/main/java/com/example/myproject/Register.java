@@ -2,6 +2,7 @@ package com.example.myproject;
 
 import static com.example.myproject.FBref.refAuth;
 import static com.example.myproject.FBref.refFamily;
+import static com.example.myproject.FBref.refUser;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -86,10 +87,31 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             pd.dismiss();
                             if (task.isSuccessful()) {
-                                Log.i("user is in the firebase", "user is in the firebase");
-                                Log.i("MainActivity", "createUserWithEmailAndPassword:success");
-                                FirebaseUser user = refAuth.getCurrentUser();
-                                tvMsg.setText("User logged in successfully\nUid: " + user.getUid());
+                                Log.i("Register", "createUserWithEmailAndPassword:success");
+                                FirebaseUser fbUser = refAuth.getCurrentUser();
+                                if (fbUser != null) {
+                                    String uid = fbUser.getUid();
+                                    User user = new User(etN.getText().toString(), isParent, uid);
+
+                                    refUser.child(uid).setValue(user)
+                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        tvMsg.setText("User created successfully in the database.");
+                                                    } else {
+                                                        tvMsg.setText("Failed to save user in the database.");
+                                                        Log.e("Register", "Database error: ", task.getException());
+                                                    }
+                                                }
+                                            });
+                                }
+
+                                // Navigate back to MainActivity
+                                Intent intent = new Intent(Register.this, MainActivity.class);
+                                startActivity(intent);
+                                finish(); // Close the Login activity
+
                             } else {
                                 Log.i("regfail", "regfail");
                                 Log.i("MainActivity", "createUserWithEmailAndPassword:failure", task.getException());
@@ -127,10 +149,4 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
         refFamily.child(family.getFId()).setValue(family);
 
     }
-
-
-    //password check, javadoc
-    //public void next(View view){
-        //ויוזר ליצור שורש של המשפחה אם זה הורה
-    //}
 }
