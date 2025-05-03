@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".Register">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <TextView
+        android:id="@+id/tvT1"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2"
+        android:gravity="center"
+        android:text="צור משתמש"
+        android:textSize="34sp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="116dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:onClick="loginUser"
+            android:text="בחזרה להתחברות" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.1"
+        android:gravity="center|right"
+        android:text="הכנס שם:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/etN"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.2"
+        android:ems="10"
+        android:hint=""
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.1"
+        android:gravity="center|right"
+        android:text="הכנס אימייל:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/etE"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.2"
+        android:ems="10"
+        android:hint="example@gmail.com"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/tvPass"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.1"
+        android:gravity="center|right"
+        android:text="הכנס סיסמא:"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/etP"
+        android:layout_width="370dp"
+        android:layout_height="0px"
+        android:layout_weight="0.2"
+        android:ems="10"
+        android:inputType="textPassword" />
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/swParent"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="הורה?" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+
+        <CheckBox
+            android:id="@+id/swSave"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:text="הישאר מחובר" />
+
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.3"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="116dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:onClick="createUser"
+            android:text="צור משתמש" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+
+</LinearLayout>
