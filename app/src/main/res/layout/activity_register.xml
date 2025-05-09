@@ -15,7 +15,7 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvTitle1"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -143,7 +143,7 @@
             android:layout_weight="6" />
 
         <CheckBox
-            android:id="@+id/swSave"
+            android:id="@+id/cbSave"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="3"

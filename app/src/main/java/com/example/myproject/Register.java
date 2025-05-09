@@ -29,9 +29,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     Button btnLoginBack, btnRegister;
-    TextView tvTitle1, tvPass, tvMsg, tvName, tvEmail;
+    TextView tvTitle, tvPass, tvMsg, tvName, tvEmail;
     EditText etName, etPass, etEmail;
-    CheckBox swSave;
+    CheckBox cbSave;
 
     SharedPreferences settings;
     String uId;
@@ -46,11 +46,11 @@ public class Register extends AppCompatActivity {
         tvMsg = findViewById(R.id.tvMsg);
         tvName = findViewById(R.id.tvName);
         tvEmail = findViewById(R.id.tvEmail);
-        tvTitle1 = findViewById(R.id.tvTitle1);
+        tvTitle = findViewById(R.id.tvTitle);
         etName = findViewById(R.id.etName);
         etEmail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
-        swSave = findViewById(R.id.swSave);
+        cbSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
     }

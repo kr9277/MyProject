@@ -1,7 +1,6 @@
 package com.example.myproject;
 
 import static com.example.myproject.FBref.refAuth;
-import static com.example.myproject.FBref.refFamily;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -9,11 +8,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,13 +24,11 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-
 public class Login extends AppCompatActivity {
     Button btnRegisterBack, btnLogin;
-    TextView tvTitle1, tvPass, tvEmail, tvMsg;
+    TextView tvTitle, tvPass, tvEmail, tvMsg;
     EditText etPass, etEmail;
-    CheckBox swSave;
+    CheckBox cbSave;
 
     SharedPreferences settings;
     String uId;
@@ -46,10 +41,10 @@ public class Login extends AppCompatActivity {
         btnRegisterBack = findViewById(R.id.btnRegisterBack);
         btnLogin = findViewById(R.id.btnLogin);
         tvMsg = findViewById(R.id.tvMsg);
-        tvTitle1 = findViewById(R.id.tvTitle1);
+        tvTitle = findViewById(R.id.tvTitle);
         etEmail = findViewById(R.id.etEmail);
         etPass = findViewById(R.id.etPass);
-        swSave = findViewById(R.id.swSave);
+        cbSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);
         tvEmail = findViewById(R.id.tvEmail);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);

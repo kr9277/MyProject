@@ -35,11 +35,11 @@ public class ChooseFamily extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLoginBack);
         btnRegister = findViewById(R.id.btnRegister);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvTitle1);
+        tvT1 = findViewById(R.id.tvTitle);
         etN = findViewById(R.id.etName);
         etE = findViewById(R.id.etEmail);
         etP = findViewById(R.id.etPass);
-        swSave = findViewById(R.id.swSave);
+        swSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);
 
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
