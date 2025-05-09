@@ -29,43 +29,35 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-public class Login extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class Login extends AppCompatActivity {
     Button btnRegisterBack, btnLogin;
-    TextView tvT1, tvPass, tvMsg;
-    EditText etP, etE;
+    TextView tvTitle1, tvPass, tvEmail, tvMsg;
+    EditText etPass, etEmail;
     CheckBox swSave;
-    ListView lv;
 
     SharedPreferences settings;
     String uId;
-    String fId;
-    boolean parent = false;
-    int points = 0;
     public static User user;
-    public static Family family;
-    ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
-    ArrayList<String> taskTypes = new ArrayList<String>();
-    ArrayList<String> familiesFoundList;
-    ArrayList<Family> familiesValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        btnRegister = findViewById(R.id.btnRegister);
-        btnLogin = findViewById(R.id.btnLoginBack);
+        btnRegisterBack = findViewById(R.id.btnRegisterBack);
+        btnLogin = findViewById(R.id.btnLogin);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvTitle1);
-        etE = findViewById(R.id.etEmail);
-        etP = findViewById(R.id.etPass);
+        tvTitle1 = findViewById(R.id.tvTitle1);
+        etEmail = findViewById(R.id.etEmail);
+        etPass = findViewById(R.id.etPass);
         swSave = findViewById(R.id.swSave);
         tvPass = findViewById(R.id.tvPass);
+        tvEmail = findViewById(R.id.tvEmail);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
     }
     public void loginUser(View view) {
-        String email = etE.getText().toString();
-        String password = etP.getText().toString();
-        if(email.isEmpty()|| password.isEmpty()){
+        String email = etEmail.getText().toString();
+        String password = etPass.getText().toString();
+        if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {
             ProgressDialog pd = new ProgressDialog(this);
@@ -82,14 +74,11 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemClickL
                                 Log.i("MainActivity", "signInWithEmailAndPassword:success");
                                 FirebaseUser user = refAuth.getCurrentUser();
                                 tvMsg.setText("User logged in successfully\nUid: " + user.getUid());
-
-                                // Navigate back to MainActivity
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 startActivity(intent);
-                                finish(); // Close the Login activity
-
-
-                            } else {
+                                finish();
+                            }
+                            else {
                                 Log.i("regfail", "regfail");
                                 Log.i("MainActivity", "signInWithEmail:failure", task.getException());
                                 Exception exp = task.getException();
@@ -107,20 +96,8 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemClickL
                     });
         }
     }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        lv.setOnItemClickListener(this);
-        family = familiesValue.get(i);
-        family.addMember(user.getuId());
-        refFamily.child(family.getFId()).setValue(family);
-
-    }
-
     public void createUser(View view){
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
     }
-
 }
