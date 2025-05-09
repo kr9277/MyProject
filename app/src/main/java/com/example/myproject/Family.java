@@ -14,7 +14,7 @@ public class Family {
     public Family(){
     }
 
-    public Family(String address, String uId, String createdBy, String name){
+    public Family(String fId, String address, String uId, String createdBy, String name){
         this.address = address;
         this.uIds = new ArrayList<>();
         uIds.add(uId);

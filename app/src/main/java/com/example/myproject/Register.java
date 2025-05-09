@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,7 +36,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
     Button btnLogin, btnRegister;
     TextView tvT1, tvP, tvC, tvPass, tvMsg, tvS, tvDS, tvCFM;
     EditText etN, etAd, etP, etE;
-    CheckBox swParent, swSave;
+    CheckBox swSave;
     ListView lv;
 
     SharedPreferences settings;
@@ -59,11 +58,10 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
         btnLogin = findViewById(R.id.btnLogin);
         btnRegister = findViewById(R.id.btnRegister);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvT1);
+        tvT1 = findViewById(R.id.tvTitle1);
         etN = findViewById(R.id.etN);
         etE = findViewById(R.id.etE);
         etP = findViewById(R.id.etP);
-        swParent = findViewById(R.id.swParent);
         swSave = findViewById(R.id.swSave);
         tvPass = findViewById(R.id.tvPass);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -73,7 +71,6 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
     public void createUser(View view){
         String email = etE.getText().toString();
         String password = etP.getText().toString();
-        boolean isParent = swParent.isChecked(); //*******
         if(email.isEmpty()|| password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {
@@ -91,7 +88,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
                                 FirebaseUser fbUser = refAuth.getCurrentUser();
                                 if (fbUser != null) {
                                     String uid = fbUser.getUid();
-                                    User user = new User(etN.getText().toString(), isParent, uid);
+                                    User user = new User(etN.getText().toString(), uid);
 
                                     refUser.child(uid).setValue(user)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {

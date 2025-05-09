@@ -10,10 +10,10 @@ public class User {
     public User(){
 
     }
-    public User(String name, boolean parent, String uId){
+    public User(String name, String uId){
         this.name = name;
         this.fId = "";
-        this.parent = parent;
+        this.parent = false;
         this.points = 0;
         this.uId = uId;
     }

@@ -15,7 +15,7 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvT1"
+        android:id="@+id/tvTitle1"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -34,13 +34,24 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="116dp"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="loginUser"
-            android:text="בחזרה להתחברות" />
+            android:text="בחזרה להתחברות"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
     </LinearLayout>
 
@@ -115,28 +126,23 @@
         android:orientation="horizontal">
 
 
-        <CheckBox
-            android:id="@+id/swParent"
-            android:layout_width="0px"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="הורה?" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.3"
-        android:orientation="horizontal">
-
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
 
         <CheckBox
             android:id="@+id/swSave"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:text="הישאר מחובר" />
+            android:text="הישאר מחובר"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
 
 
     </LinearLayout>
@@ -152,13 +158,24 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="116dp"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="createUser"
-            android:text="צור משתמש" />
+            android:text="צור משתמש"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
     </LinearLayout>
 

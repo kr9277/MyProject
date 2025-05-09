@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemClickL
         btnRegister = findViewById(R.id.btnRegister);
         btnLogin = findViewById(R.id.btnLogin);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvT1);
+        tvT1 = findViewById(R.id.tvTitle1);
         etE = findViewById(R.id.etE);
         etP = findViewById(R.id.etP);
         swSave = findViewById(R.id.swSave);
