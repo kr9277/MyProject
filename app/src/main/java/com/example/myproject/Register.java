@@ -44,11 +44,11 @@ public class Register extends AppCompatActivity {
         btnLoginBack = findViewById(R.id.btnLoginBack);
         btnRegister = findViewById(R.id.btnRegister);
         tvMsg = findViewById(R.id.tvMsg);
-        tvName = findViewById(R.id.tvName);
+        tvName = findViewById(R.id.tvFamilyAddress);
         tvEmail = findViewById(R.id.tvEmail);
         tvTitle = findViewById(R.id.tvTitle);
-        etName = findViewById(R.id.etName);
-        etEmail = findViewById(R.id.etEmail);
+        etName = findViewById(R.id.etFamilyName);
+        etEmail = findViewById(R.id.etEmailHead);
         etPass = findViewById(R.id.etPass);
         cbSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);

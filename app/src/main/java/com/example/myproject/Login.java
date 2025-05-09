@@ -42,7 +42,7 @@ public class Login extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvMsg = findViewById(R.id.tvMsg);
         tvTitle = findViewById(R.id.tvTitle);
-        etEmail = findViewById(R.id.etEmail);
+        etEmail = findViewById(R.id.etEmailHead);
         etPass = findViewById(R.id.etPass);
         cbSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);

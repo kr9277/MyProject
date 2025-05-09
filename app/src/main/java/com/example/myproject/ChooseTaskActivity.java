@@ -12,11 +12,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class ChooseTaskActivity extends AppCompatActivity {
     CheckBox cb1, cb2, cb3, cb4, cb5, cb6, cb7, cb8, cb9, cb10;
     TextView tvTitel3;
     EditText etAddTask;
     Button btnAddTask;
+    ArrayList<String> taskTypes = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

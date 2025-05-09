@@ -6,48 +6,45 @@ import static com.example.myproject.FBref.refFamily;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-
 public class ChooseFamily extends AppCompatActivity {
-
+    TextView tvMsg, tvTitle, tvFamilyName, tvFamilyAddress, tvJoin, tvCreate;
+    EditText etEmailHead, etFamilyName, etFamilyAddress;
+    Button btnJoin, btnCreate;
 
     SharedPreferences settings;
     String uId;
     String fId;
-    boolean parent = false;
-    int points = 0;
+    String address;
+    String name;
+
     public static User user;
     public static Family family;
-    ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
-    ArrayList<String> taskTypes = new ArrayList<String>();
-    ArrayList<String> familiesFoundList;
-    ArrayList<Family> familiesValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        btnLogin = findViewById(R.id.btnLoginBack);
-        btnRegister = findViewById(R.id.btnRegister);
+        btnJoin = findViewById(R.id.btnJoin);
+        btnCreate = findViewById(R.id.btnCreate);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvTitle);
-        etN = findViewById(R.id.etName);
-        etE = findViewById(R.id.etEmail);
-        etP = findViewById(R.id.etPass);
-        swSave = findViewById(R.id.cbSave);
-        tvPass = findViewById(R.id.tvPass);
-
-        settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        familiesFoundList = new ArrayList<String>();//both together
-        familiesValue = new ArrayList<Family>();//ids of the families found?
-
-
+        tvTitle = findViewById(R.id.tvTitle);
+        tvFamilyName = findViewById(R.id.tvFamilyName);
+        tvFamilyAddress = findViewById(R.id.tvFamilyAddress);
+        tvJoin = findViewById(R.id.tvJoin);
+        tvCreate = findViewById(R.id.tvCreate);
+        etEmailHead = findViewById(R.id.etEmailHead);
+        etFamilyName = findViewById(R.id.etFamilyName);
+        etFamilyAddress = findViewById(R.id.etFamilyAddress);
     }
+
     public void createFamily(View view){
         FirebaseUser fbUser = refAuth.getCurrentUser();
         if (fbUser != null) {

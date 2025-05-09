@@ -83,7 +83,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etEmailHead"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"

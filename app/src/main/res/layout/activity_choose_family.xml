@@ -21,7 +21,7 @@
         android:layout_height="0px"
         android:layout_weight="0.2"
         android:gravity="center"
-        android:text="הגדרת משפחה"
+        android:text="יש לך משפחה?"
         android:textSize="34sp" />
 
     <Space
@@ -30,6 +30,18 @@
         android:layout_weight="0.1" />
 
     <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
+    <TextView
+        android:id="@+id/tvJoin"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.1"
@@ -38,7 +50,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etEmailHead"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -57,22 +69,34 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
             android:id="@+id/btnJoin"
-            android:layout_width="116dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="createUser"
-            android:text="שלח בקשה" />
+            android:text="שלח בקשה"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
     </LinearLayout>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.3" />
 
     <TextView
+        android:id="@+id/tvCreate"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.1"
@@ -86,16 +110,15 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvFamilyName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.1"
-        android:gravity="center|right"
         android:text="הכנס שם משפחה:"
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/etFamilyName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -109,7 +132,7 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvFamilyAddress"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.1"
@@ -118,13 +141,13 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/etFamilyAddress"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
         android:ems="10"
-        android:hint="כתובת"
-        android:inputType="textPostalAddress" />
+        android:inputType="textPostalAddress"
+        android:hint="כתובת" />
 
     <Space
         android:layout_width="match_parent"
@@ -137,25 +160,30 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
             android:id="@+id/btnCreate"
-            android:layout_width="116dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="loginUser"
-            android:text="צור משפחה" />
+            android:text="צור משפחה"
+            android:textSize="20sp" />
 
-        </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+    </LinearLayout>
 
 
 
     <Space
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.1" />
-
-    <TextView
-        android:id="@+id/tvMsg"
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="0.1" />

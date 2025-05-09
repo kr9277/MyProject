@@ -72,7 +72,7 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvFamilyAddress"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.1"
@@ -81,7 +81,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etName"
+        android:id="@+id/etFamilyName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -99,7 +99,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etEmail"
+        android:id="@+id/etEmailHead"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
