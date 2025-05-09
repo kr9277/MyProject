@@ -28,6 +28,17 @@
         android:layout_height="0px"
         android:layout_weight="0.1" />
 
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
@@ -40,8 +51,8 @@
             android:layout_weight="2" />
 
         <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="250dp"
+            android:id="@+id/btnLoginBack"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="loginUser"
@@ -70,7 +81,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etN"
+        android:id="@+id/etName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -88,7 +99,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etE"
+        android:id="@+id/etEmail"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -106,7 +117,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etP"
+        android:id="@+id/etPass"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -128,8 +139,8 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_height="match_parent"
+            android:layout_weight="6" />
 
         <CheckBox
             android:id="@+id/swSave"
@@ -141,8 +152,8 @@
 
         <Space
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3" />
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
 
     </LinearLayout>
@@ -165,7 +176,7 @@
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="250dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:onClick="createUser"
@@ -182,13 +193,7 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="0.1" />
-
-    <TextView
-        android:id="@+id/tvMsg"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.4" />
 
 
 </LinearLayout>

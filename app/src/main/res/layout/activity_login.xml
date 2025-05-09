@@ -29,19 +29,40 @@
         android:layout_height="0px"
         android:layout_weight="0.1" />
 
+    <TextView
+        android:id="@+id/tvMsg"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="116dp"
+            android:id="@+id/btnRegisterBack"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:onClick="createUser"
-            android:text="צור משתמש" />
+            android:text="בחזרה ליצירת משתמש"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
     </LinearLayout>
 
@@ -62,7 +83,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etE"
+        android:id="@+id/etEmail"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -80,7 +101,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etP"
+        android:id="@+id/etPass"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -99,12 +120,23 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/swSave"
+        <Space
             android:layout_width="0px"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="הישאר מחובר" />
+            android:layout_weight="3" />
+
+        <CheckBox
+            android:id="@+id/swSave"
+            android:layout_width="145dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="הישאר מחובר"
+            android:textSize="16sp" />
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5" />
 
     </LinearLayout>
 
@@ -119,28 +151,31 @@
         android:layout_weight="0.3"
         android:orientation="horizontal">
 
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="116dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:onClick="loginUser"
-            android:text="התחבר" />
+            android:text="התחבר"
+            android:textSize="20sp" />
 
-        </LinearLayout>
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
+    </LinearLayout>
 
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="0.1" />
-
-    <TextView
-        android:id="@+id/tvMsg"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.1" />
+        android:layout_weight="0.3" />
 
 
 </LinearLayout>

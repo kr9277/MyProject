@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 public class Login extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    Button btnRegister, btnLogin;
+    Button btnRegisterBack, btnLogin;
     TextView tvT1, tvPass, tvMsg;
     EditText etP, etE;
     CheckBox swSave;
@@ -53,11 +53,11 @@ public class Login extends AppCompatActivity implements AdapterView.OnItemClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnRegister = findViewById(R.id.btnRegister);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLoginBack);
         tvMsg = findViewById(R.id.tvMsg);
         tvT1 = findViewById(R.id.tvTitle1);
-        etE = findViewById(R.id.etE);
-        etP = findViewById(R.id.etP);
+        etE = findViewById(R.id.etEmail);
+        etP = findViewById(R.id.etPass);
         swSave = findViewById(R.id.swSave);
         tvPass = findViewById(R.id.tvPass);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);

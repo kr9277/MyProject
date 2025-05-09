@@ -1,7 +1,6 @@
 package com.example.myproject;
 
 import static com.example.myproject.FBref.refAuth;
-import static com.example.myproject.FBref.refFamily;
 import static com.example.myproject.FBref.refUser;
 
 import android.app.ProgressDialog;
@@ -10,11 +9,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,48 +27,37 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-
-public class Register extends AppCompatActivity implements AdapterView.OnItemClickListener {
-    Button btnLogin, btnRegister;
-    TextView tvT1, tvP, tvC, tvPass, tvMsg, tvS, tvDS, tvCFM;
-    EditText etN, etAd, etP, etE;
+public class Register extends AppCompatActivity {
+    Button btnLoginBack, btnRegister;
+    TextView tvTitle1, tvPass, tvMsg, tvName, tvEmail;
+    EditText etName, etPass, etEmail;
     CheckBox swSave;
-    ListView lv;
 
     SharedPreferences settings;
     String uId;
-    String fId;
-    boolean parent = false;
-    int points = 0;
     public static User user;
-    public static Family family;
-    ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
-    ArrayList<String> taskTypes = new ArrayList<String>();
-    ArrayList<String> familiesFoundList;
-    ArrayList<Family> familiesValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLoginBack = findViewById(R.id.btnLoginBack);
         btnRegister = findViewById(R.id.btnRegister);
         tvMsg = findViewById(R.id.tvMsg);
-        tvT1 = findViewById(R.id.tvTitle1);
-        etN = findViewById(R.id.etN);
-        etE = findViewById(R.id.etE);
-        etP = findViewById(R.id.etP);
+        tvName = findViewById(R.id.tvName);
+        tvEmail = findViewById(R.id.tvEmail);
+        tvTitle1 = findViewById(R.id.tvTitle1);
+        etName = findViewById(R.id.etName);
+        etEmail = findViewById(R.id.etEmail);
+        etPass = findViewById(R.id.etPass);
         swSave = findViewById(R.id.swSave);
         tvPass = findViewById(R.id.tvPass);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        familiesFoundList = new ArrayList<String>();//both together
-        familiesValue = new ArrayList<Family>();//ids of the families found?
     }
     public void createUser(View view){
-        String email = etE.getText().toString();
-        String password = etP.getText().toString();
-        if(email.isEmpty()|| password.isEmpty()){
+        String email = etEmail.getText().toString();
+        String password = etPass.getText().toString();
+        if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {
             ProgressDialog pd = new ProgressDialog(this);
@@ -88,8 +74,7 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
                                 FirebaseUser fbUser = refAuth.getCurrentUser();
                                 if (fbUser != null) {
                                     String uid = fbUser.getUid();
-                                    User user = new User(etN.getText().toString(), uid);
-
+                                    User user = new User(etName.getText().toString(), uid);
                                     refUser.child(uid).setValue(user)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
@@ -103,8 +88,6 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
                                                 }
                                             });
                                 }
-
-                                // Navigate back to MainActivity
                                 Intent intent = new Intent(Register.this, MainActivity.class);
                                 startActivity(intent);
                                 finish(); // Close the Login activity
@@ -131,19 +114,8 @@ public class Register extends AppCompatActivity implements AdapterView.OnItemCli
                     });
         }
     }
-
     public void loginUser(View view){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Login.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-        lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        lv.setOnItemClickListener(this);
-        family = familiesValue.get(i);
-        family.addMember(user.getuId());
-        refFamily.child(family.getFId()).setValue(family);
-
     }
 }

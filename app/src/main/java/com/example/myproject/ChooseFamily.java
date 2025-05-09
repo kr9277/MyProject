@@ -32,13 +32,13 @@ public class ChooseFamily extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.btnLoginBack);
         btnRegister = findViewById(R.id.btnRegister);
         tvMsg = findViewById(R.id.tvMsg);
         tvT1 = findViewById(R.id.tvTitle1);
-        etN = findViewById(R.id.etN);
-        etE = findViewById(R.id.etE);
-        etP = findViewById(R.id.etP);
+        etN = findViewById(R.id.etName);
+        etE = findViewById(R.id.etEmail);
+        etP = findViewById(R.id.etPass);
         swSave = findViewById(R.id.swSave);
         tvPass = findViewById(R.id.tvPass);
 

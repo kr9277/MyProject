@@ -38,7 +38,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etE"
+        android:id="@+id/etEmail"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -95,7 +95,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etN"
+        android:id="@+id/etName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
@@ -118,7 +118,7 @@
         android:textSize="20sp" />
 
     <EditText
-        android:id="@+id/etN"
+        android:id="@+id/etName"
         android:layout_width="370dp"
         android:layout_height="0px"
         android:layout_weight="0.2"
