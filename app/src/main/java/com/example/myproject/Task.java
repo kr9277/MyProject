@@ -15,15 +15,15 @@ public class Task {
     public Task(){
 
     }
-    public Task(int Id, String endTime, int taskTypes, boolean isCompleted, String responsible, boolean isTaken, int points, int numDelays, String fId, String disc){
+    public Task(int Id, String endTime, int taskTypes, String responsible, boolean isTaken, int points, String fId, String disc){
         this.Id = Id;
         this.endTime = endTime;
         this.taskTypes = taskTypes;
-        this.isCompleted = isCompleted;
-        this.responsible = responsible;
+        this.isCompleted = false;
+        this.responsible = "";
         this.isTaken = isTaken;
         this.points = points;
-        this.numDelays = numDelays;
+        this.numDelays = 0;
         this.fId = fId;
         this.disc = disc;
     }
@@ -57,5 +57,35 @@ public class Task {
     }
     public String getDisc(){
         return disc;
+    }
+    public void updateNumDelays(){
+        numDelays++;
+    }
+    public void setEndTime(String endTime){
+        this.endTime = endTime;
+    }
+    public void setTaskTypes(int taskTypes){
+        this.taskTypes = taskTypes;
+    }
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    public void setResponsible(String responsible){
+        this.responsible = responsible;
+    }
+    public void setTaken(boolean isTaken){
+        this.isTaken = isTaken;
+        }
+    public void setPoints(int points){
+        this.points = points;
+    }
+    public void setfId(String fId){
+        this.fId = fId;
+    }
+    public void setDisc(String disc){
+        this.disc = disc;
+    }
+    public void setId(int Id){
+        this.Id = Id;
     }
 }

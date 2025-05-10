@@ -28,15 +28,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SharedPreferences settings;
     String uId;
     String fId;
-    boolean parent = false;
-    int points = 0;
 
     private FirebaseUser fbUser;
 
     public static User user;
     public static Family family;
     //ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
-    //ArrayList<String> taskTypes = new ArrayList<String>();
+    ArrayList<String> taskTypes = new ArrayList<String>();
     //ArrayList<String> familiesFoundList;
     //ArrayList<Family> familiesValue;
 
@@ -71,6 +69,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         family.addMember(user.getuId());
         refFamily.child(family.getFId()).setValue(family);
     }*/
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+        lvLebi.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        lvLebi.setOnItemClickListener(this);
+    }
 
     public void logOut(View view) {
         refAuth.signOut();
