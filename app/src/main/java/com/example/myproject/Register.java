@@ -34,6 +34,7 @@ public class Register extends AppCompatActivity {
     CheckBox cbSave;
 
     SharedPreferences settings;
+    SharedPreferences.Editor editor;
     String uId;
     public static User user;
 
@@ -52,11 +53,15 @@ public class Register extends AppCompatActivity {
         etPass = findViewById(R.id.etPass);
         cbSave = findViewById(R.id.cbSave);
         tvPass = findViewById(R.id.tvPass);
+
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        editor = settings.edit();
+
     }
     public void createUser(View view){
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
+        editor.putBoolean("save", cbSave.isChecked());
         if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {
@@ -73,9 +78,9 @@ public class Register extends AppCompatActivity {
                                 Log.i("Register", "createUserWithEmailAndPassword:success");
                                 FirebaseUser fbUser = refAuth.getCurrentUser();
                                 if (fbUser != null) {
-                                    String uid = fbUser.getUid();
-                                    User user = new User(etName.getText().toString(), uid);
-                                    refUser.child(uid).setValue(user)
+                                    uId = fbUser.getUid();
+                                    user = new User(etName.getText().toString(), uId);
+                                    refUser.child(uId).setValue(user)
                                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
@@ -88,7 +93,8 @@ public class Register extends AppCompatActivity {
                                                 }
                                             });
                                 }
-                                Intent intent = new Intent(Register.this, MainActivity.class);
+                                //Intent intent = new Intent(Register.this, MainActivity.class);
+                                Intent intent = new Intent(Register.this, ChooseFamily.class);
                                 startActivity(intent);
                                 finish(); // Close the Login activity
 
