@@ -34,7 +34,7 @@ public class Task {
     public Date getEndTime(){
         return endTime;
     }
-    public boolean getIsComplited(){
+    public boolean getIsCompleted(){
         return isCompleted;
     }
     public String getResponsible(){

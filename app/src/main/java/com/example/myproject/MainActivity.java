@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,15 +40,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SQLiteDatabase db;
 
     private FirebaseUser fbUser;
+    DatabaseReference tasksRef;
 
     //AlertDialog.Builder adb;
 
     public static User user;
     public static Family family;
-    //ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the menbers of the family
+    //ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the members of the family
     ArrayList<String> taskTypes = new ArrayList<String>();
-    //ArrayList<String> familiesFoundList;
-    //ArrayList<Family> familiesValue;
+    ArrayList<Task> toDoTasks = new ArrayList<>();
+    ArrayList<Task> inProgressTasks = new ArrayList<>();
+    TaskAdapter toDoAdapter = new TaskAdapter(this, toDoTasks);
+    TaskAdapter inProgressAdapter = new TaskAdapter(this, inProgressTasks);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +68,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lvBebi = findViewById(R.id.lvBebi);
         lvLebi = findViewById(R.id.lvLebi);
 
-        //familiesFoundList = new ArrayList<String>();//both together
-        //familiesValue = new ArrayList<Family>();//ids of the families found?
+        lvBebi.setAdapter(toDoAdapter);
+        lvLebi.setAdapter(inProgressAdapter);
+        tasksRef = refFamily.child(fId).child("currentFamilyTasks");
+        tasksRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                toDoTasks.clear();
+                inProgressTasks.clear();
+                for (DataSnapshot taskSnap : snapshot.getChildren()) {
+                    Task task = taskSnap.getValue(Task.class);
+                    if (task == null) continue;
+                    if (task.getIsCompleted()) {
+                        inProgressTasks.add(task); // משימות שהושלמו
+                    } else {
+                        toDoTasks.add(task); // משימות לביצו ע
+                    }
+                }
+                toDoAdapter.notifyDataSetChanged();
+                inProgressAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                //טיפול בשגיאה
+            }
+        });
     }
 
     //@Override

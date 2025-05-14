@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,9 @@
         android:theme="@style/Theme.MyProject"
         tools:targetApi="31">
         <activity
+            android:name=".TaskAdapter"
+            android:exported="false" />
+        <activity
             android:name=".OpenTaskActivity"
             android:exported="false" />
         <activity
@@ -20,8 +25,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Login"
             android:exported="true">
