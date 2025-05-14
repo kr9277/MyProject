@@ -33,6 +33,7 @@ public class ChooseFamily extends AppCompatActivity {
     Button btnJoin, btnCreate;
 
     SharedPreferences settings;
+    SharedPreferences.Editor editor;
     FirebaseUser fbUser;
     String uId;
     String email;
@@ -80,6 +81,11 @@ public class ChooseFamily extends AppCompatActivity {
             // update user fid and parent = true
             tvMsg.setText("Family created successfully\nBy: "+email);
             Log.i("FamilyId", fId);
+
+            editor = settings.edit();
+            editor.putString("fId", fId);
+            editor.commit();
+
             Intent intent = new Intent(ChooseFamily.this, MainActivity.class);
             startActivity(intent);
             finish();
@@ -110,6 +116,11 @@ public class ChooseFamily extends AppCompatActivity {
                                 //System.out.println("Data could not be saved: " + error.getMessage());
                             } else {
                                 refUser.child(uId).child("fId").setValue(fId);
+
+                                editor = settings.edit();
+                                editor.putString("fId", fId);
+                                editor.commit();
+
                                 Intent intent = new Intent(ChooseFamily.this, MainActivity.class);
                                 startActivity(intent);
                                 finish();

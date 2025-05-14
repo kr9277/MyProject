@@ -106,6 +106,7 @@ public class OpenTaskActivity extends AppCompatActivity {
                 tvMsg1.setText("Task created successfully");
                 Log.i("TaskId", tId);
             }
-
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
         }
     }

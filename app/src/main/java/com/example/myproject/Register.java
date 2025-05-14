@@ -55,12 +55,13 @@ public class Register extends AppCompatActivity {
         tvPass = findViewById(R.id.tvPass);
 
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        editor = settings.edit();
+
 
     }
     public void createUser(View view){
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
+        editor = settings.edit();
         editor.putBoolean("save", cbSave.isChecked());
         editor.commit();
         if(email.isEmpty() || password.isEmpty()){
@@ -124,5 +125,6 @@ public class Register extends AppCompatActivity {
     public void loginUser(View view){
         Intent intent = new Intent(this, Login.class);
         startActivity(intent);
+        finish();
     }
 }

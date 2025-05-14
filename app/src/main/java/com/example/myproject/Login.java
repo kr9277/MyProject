@@ -1,6 +1,7 @@
 package com.example.myproject;
 
 import static com.example.myproject.FBref.refAuth;
+import static com.example.myproject.FBref.refUser;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,6 +24,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
     Button btnRegisterBack, btnLogin;
@@ -51,6 +55,17 @@ public class Login extends AppCompatActivity {
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        boolean isChecked = settings.getBoolean("save", false);
+        FirebaseUser fbUser = refAuth.getCurrentUser();
+        if (fbUser!= null && isChecked){
+            loadUserFamily(fbUser);
+        }
+    }
+
     public void loginUser(View view) {
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
@@ -72,11 +87,11 @@ public class Login extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.i("user is in the firebase", "user is in the firebase");
                                 Log.i("MainActivity", "signInWithEmailAndPassword:success");
-                                FirebaseUser user = refAuth.getCurrentUser();
-                                tvMsg.setText("User logged in successfully\nUid: " + user.getUid());
-                                Intent intent = new Intent(Login.this, MainActivity.class);
-                                startActivity(intent);
-                                finish();
+                                FirebaseUser fbUser = refAuth.getCurrentUser();
+                                if (fbUser != null) {
+                                    tvMsg.setText("User logged in successfully\nUid: " + fbUser.getUid());
+                                    loadUserFamily(fbUser);
+                                }
                             }
                             else {
                                 Log.i("regfail", "regfail");
@@ -99,5 +114,39 @@ public class Login extends AppCompatActivity {
     public void createUser(View view){
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
+        finish();
+    }
+
+    private void loadUserFamily(FirebaseUser fbUser) {
+        String uId = fbUser.getUid();
+        String fId = settings.getString("fId", null);
+        if (fId == null){
+            refUser.child(uId).child("fId").addListenerForSingleValueEvent(new ValueEventListener(){
+                   @Override
+                   public void onDataChange(@NonNull DataSnapshot snapshot) {
+                       String fId = snapshot.getValue(String.class);
+                       if (fId == null){ // User missing a family
+                           Intent intent = new Intent(Login.this, ChooseFamily.class);
+                           startActivity(intent);
+                       }
+
+                       editor = settings.edit();
+                       editor.putString("fId", fId);
+                       editor.commit();
+
+                       Intent main = new Intent(Login.this, MainActivity.class);
+                       startActivity(main);
+                   }
+
+                   @Override
+                   public void onCancelled(@NonNull DatabaseError error) {
+                   }
+            }
+            );
+
+        }
+        Intent main = new Intent(Login.this, MainActivity.class);
+        startActivity(main);
+
     }
 }

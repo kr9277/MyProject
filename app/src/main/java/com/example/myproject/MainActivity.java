@@ -7,6 +7,7 @@ import static com.example.myproject.FBref.refUser;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     SharedPreferences.Editor editor;
     String uId;
     String fId;
+    SQLiteDatabase db;
 
     private FirebaseUser fbUser;
 
@@ -53,45 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
 
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        fbUser = refAuth.getCurrentUser();
-        if (fbUser != null && (!settings.getBoolean("save", false)))
-        {
-            refAuth.signOut();
-            editor = settings.edit();
-            editor.putString("fId", null);
-            editor.commit();
-            fbUser = null;
-        }
-
-        if (fbUser == null){
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-            finish();
-        }
-
-        uId = fbUser.getUid();
         fId = settings.getString("fId", null);
-        if (fId == null){
-            refUser.child(uId).child("fId").addListenerForSingleValueEvent(new ValueEventListener(){
-                   @Override
-                   public void onDataChange(@NonNull DataSnapshot snapshot) {
-                       fId = snapshot.getValue(String.class);
-                   }
-
-                   @Override
-                   public void onCancelled(@NonNull DatabaseError error) {
-                   }
-               }
-            );
-            if (fId == null){ // User missing a family
-                Intent intent = new Intent(this, ChooseFamily.class);
-                startActivity(intent);
-                finish();
-            }
-            editor = settings.edit();
-            editor.putString("fId", fId);
-            editor.commit();
-        }
 
         btnLogOut = findViewById(R.id.btnLogOut);
         btnNewTask = findViewById(R.id.btnNewTask);
