@@ -33,6 +33,7 @@ public class Login extends AppCompatActivity {
     SharedPreferences settings;
     String uId;
     public static User user;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +49,14 @@ public class Login extends AppCompatActivity {
         tvPass = findViewById(R.id.tvPass);
         tvEmail = findViewById(R.id.tvEmail);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
     }
     public void loginUser(View view) {
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
+        editor = settings.edit();
+        editor.putBoolean("save", cbSave.isChecked());
+        editor.commit();
         if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {

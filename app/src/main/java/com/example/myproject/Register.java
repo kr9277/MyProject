@@ -62,6 +62,7 @@ public class Register extends AppCompatActivity {
         String email = etEmail.getText().toString();
         String password = etPass.getText().toString();
         editor.putBoolean("save", cbSave.isChecked());
+        editor.commit();
         if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
         } else {
@@ -107,7 +108,7 @@ public class Register extends AppCompatActivity {
                                 } else if (exp instanceof FirebaseAuthWeakPasswordException) {
                                     tvMsg.setText("Password too weak.");
                                 } else if (exp instanceof FirebaseAuthUserCollisionException) {
-                                    tvMsg.setText("User already exists.");
+                                    tvMsg.setText("User already exists, please login or use another email.");
                                 } else if (exp instanceof FirebaseAuthInvalidCredentialsException) {
                                     tvMsg.setText("General authentication failure.");
                                 } else if (exp instanceof FirebaseNetworkException) {

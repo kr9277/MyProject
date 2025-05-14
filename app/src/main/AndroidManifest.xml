@@ -13,6 +13,9 @@
         android:theme="@style/Theme.MyProject"
         tools:targetApi="31">
         <activity
+            android:name=".OpenTaskActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChooseTaskActivity"
             android:exported="false" />
         <activity

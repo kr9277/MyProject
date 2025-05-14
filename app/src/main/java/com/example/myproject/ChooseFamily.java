@@ -69,7 +69,6 @@ public class ChooseFamily extends AppCompatActivity {
     }
 
     public void createFamily(View view){
-
         address = etFamilyAddress.getText().toString();
         name = etFamilyName.getText().toString();
         if (fbUser != null) {
@@ -83,7 +82,7 @@ public class ChooseFamily extends AppCompatActivity {
             Log.i("FamilyId", fId);
             Intent intent = new Intent(ChooseFamily.this, MainActivity.class);
             startActivity(intent);
-            finish(); // Close the Login activity
+            finish();
         }
     }
 
@@ -101,9 +100,7 @@ public class ChooseFamily extends AppCompatActivity {
                     }
                 } else {
                     //Toast.makeText(ChooseFamily.this, "No family found with that email.", Toast.LENGTH_SHORT).show();
-
                 }
-
                 if (fId != null){
                     DatabaseReference ref = refFamily.child(fId).child("uids");
                     ref.push().setValue(uId, new DatabaseReference.CompletionListener() {

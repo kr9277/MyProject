@@ -6,7 +6,7 @@ public class Family {
 
     private String createdBy;
     private String fId;
-    private ArrayList<String> taskTypes;
+    private ArrayList<Task> currentFamilyTasks;
     private ArrayList<String> uIds;
     private String address;
     private String name;
@@ -28,8 +28,8 @@ public class Family {
     public String getCreatedBy(){
         return createdBy;
     }
-    public ArrayList<String> getTaskTypes(){
-        return taskTypes;
+    public ArrayList<Task> getCurrentFamilyTasks(){
+        return currentFamilyTasks;
     }
     public ArrayList<String> getUIds(){
         return uIds;
@@ -44,14 +44,18 @@ public class Family {
     public void addMember(String uId){
         uIds.add(uId);
     }
+    public void addTask(Task task){
+        currentFamilyTasks.add(task);
+    }
+
     public void setFId(String fId){
         this.fId = fId;
     }
     public void setCreatedBy(String createdBy){
         this.createdBy = createdBy;
     }
-    public void setTaskTypes(ArrayList<String> taskTypes){
-        this.taskTypes = taskTypes;
+    public void setTaskTypes(ArrayList<Task> currentFamilyTasks){
+        this.currentFamilyTasks = currentFamilyTasks;
     }
     public void setUIds(ArrayList<String> uIds){
         this.uIds = uIds;
