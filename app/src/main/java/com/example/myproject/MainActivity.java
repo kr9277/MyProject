@@ -47,11 +47,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public static User user;
     public static Family family;
     //ArrayList<String> uIdsThis = new ArrayList<String>();//uid of all the members of the family
-    ArrayList<String> taskTypes = new ArrayList<String>();
-    ArrayList<Task> toDoTasks = new ArrayList<>();
-    ArrayList<Task> inProgressTasks = new ArrayList<>();
-    TaskAdapter toDoAdapter = new TaskAdapter(this, toDoTasks);
-    TaskAdapter inProgressAdapter = new TaskAdapter(this, inProgressTasks);
+    ArrayList<String> taskTypes;
+    ArrayList<Task> toDoTasks;
+    ArrayList<Task> inProgressTasks;
+    TaskAdapter toDoAdapter;
+    TaskAdapter inProgressAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         tvLebi = findViewById(R.id.tvLebi);
         lvBebi = findViewById(R.id.lvBebi);
         lvLebi = findViewById(R.id.lvLebi);
-
+        taskTypes = new ArrayList<String>();
+        toDoTasks = new ArrayList<>();
+        inProgressTasks = new ArrayList<>();
+        toDoAdapter = new TaskAdapter(this, toDoTasks);
+         inProgressAdapter = new TaskAdapter(this, inProgressTasks);
         lvBebi.setAdapter(toDoAdapter);
         lvLebi.setAdapter(inProgressAdapter);
         tasksRef = refFamily.child(fId).child("currentFamilyTasks");

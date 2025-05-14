@@ -40,11 +40,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         tvDesc.setText(task.getDisc());
         tvResponsible.setText(task.getResponsible());
         tvPoints.setText(task.getPoints() + "נקודות");
-        if(task.getIsCompleted()) {
-            tvStatus.setText("הושלם");
-        } else {
-            tvStatus.setText("בביצוע");
-        }
+        //if(task.getIsCompleted()) {
+        //    tvStatus.setText("הושלם");
+        //} else {
+        //    tvStatus.setText("בביצוע");
+        //}
+        tvStatus.setText(task.getIsCompleted() ? "Done" : "In progress");
         return convertView;
     }
 }
