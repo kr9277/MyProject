@@ -6,88 +6,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center|clip_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
+
+    <TextView
+        android:id="@+id/tvTitle5"
+        android:layout_width="204dp"
+        android:layout_height="0px"
+        android:layout_weight="0.5"
         android:gravity="center"
-        android:orientation="vertical">
+        android:text="הצג לי את המטלות ש:"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/tvLebi"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="בביצוע"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ListView
-            android:id="@+id/lvLebi"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="5">
-
-        </ListView>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="0.5" />
-
-        <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="160dp"
-            android:layout_height="0px"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:onClick="logOut"
-            android:text="התנתק" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="0.5" />
-
-    </LinearLayout>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.1" />
 
     <LinearLayout
-        android:layout_width="0px"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.4"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/tvBebi"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
             android:text="לביצוע"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/lvBebi"
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="5" />
+        <Switch
+            android:id="@+id/swWhichList"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tvLebi"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="בביצוע"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="0.5" />
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
+
+    <ListView
+        android:id="@+id/lvTasks"
+        android:layout_width="262dp"
+        android:layout_height="0px"
+        android:layout_weight="3"
+        android:foregroundGravity="center" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.6"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btnNewTask"
-            android:layout_width="160dp"
-            android:layout_height="0px"
-            android:layout_weight="0.5"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
             android:gravity="center"
             android:onClick="openNewTask"
             android:text="פתח מטלה חדשה"
@@ -96,10 +115,29 @@
             app:strokeColor="#D10707" />
 
         <Space
-            android:layout_width="match_parent"
-            android:layout_height="0px"
-            android:layout_weight="0.5" />
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2" />
+
+        <Button
+            android:id="@+id/btnLogOut"
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:onClick="logOut"
+            android:text="התנתק" />
+
+        <Space
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
 
 
 </LinearLayout>

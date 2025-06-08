@@ -1,6 +1,8 @@
 package com.example.myproject;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Task {
     private String tId;
@@ -12,11 +14,12 @@ public class Task {
     private int numDelays;
     private String fId;
     private String disc;
+    private Map<String,Boolean> readAlarm = new HashMap<>();
 
     public Task(){
 
     }
-    public Task(String tId, Date endTime, String disc, int points, String fId){
+    public Task(String tId, Date endTime, String disc, int points, String fId, String uId){
         this.tId = tId;
         this.endTime = endTime;
         this.isCompleted = false;
@@ -26,6 +29,9 @@ public class Task {
         this.numDelays = 0;
         this.fId = fId;
         this.disc = disc;
+        this.readAlarm = new HashMap<>();
+        this.readAlarm.put(uId, true);
+
     }
 
     public String getTId(){
@@ -81,5 +87,26 @@ public class Task {
     }
     public void setTId(String tId){
         this.tId = tId;
+    }
+    public boolean  isTaken(){
+        return !responsible.equals("");
+    }
+    public Map<String, Boolean> getReadAlarm() {
+        return readAlarm;
+    }
+
+    public void setReadAlarm(Map<String, Boolean> readAlarm) {
+        this.readAlarm = readAlarm;
+    }
+
+    public void setNotifiedForUser(String uId, boolean value) {
+        if (readAlarm == null) {
+            readAlarm = new HashMap<>();
+        }
+        readAlarm.put(uId, value);
+    }
+
+    public boolean isUserNotified(String uId) {
+        return readAlarm != null && readAlarm.containsKey(uId) && Boolean.TRUE.equals(readAlarm.get(uId));
     }
 }

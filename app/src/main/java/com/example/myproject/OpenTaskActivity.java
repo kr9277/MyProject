@@ -109,7 +109,9 @@ public class OpenTaskActivity extends AppCompatActivity {
             int points = Integer.parseInt(etPoints.getText().toString().trim());
             String fId = settings.getString("fId", null);
             String tId = refFamily.child(fId).child("currentFamilyTasks").push().getKey();
-            Task task = new Task(tId, time, disc, points, fId);
+            FirebaseUser fbUser = refAuth.getCurrentUser();
+            String uId = fbUser.getUid();
+            Task task = new Task(tId, time, disc, points, fId, uId);
             refFamily.child(fId).child("currentFamilyTasks").child(tId).setValue(task);
             tvMsg1.setText("Task created successfully");
             Log.i("TaskId", tId);

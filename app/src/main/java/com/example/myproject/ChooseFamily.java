@@ -66,6 +66,7 @@ public class ChooseFamily extends AppCompatActivity {
         uId = fbUser.getUid();
         email = fbUser.getEmail();
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        Log.i("Choose family", "choose family");
 
     }
 

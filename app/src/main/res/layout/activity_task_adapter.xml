@@ -7,13 +7,13 @@
     android:padding="8dp">
 
     <Space
-        android:layout_width="250dp"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.2" />
 
     <TextView
         android:id="@+id/tvDesc"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:textSize="16sp"
@@ -22,11 +22,11 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.2" />
 
     <TextView
         android:id="@+id/tvResponsible"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:textSize="14sp" />
@@ -34,11 +34,11 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.2" />
 
     <TextView
         android:id="@+id/tvPoints"
-        android:layout_width="250dp"
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:textSize="14sp" />
@@ -46,11 +46,11 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.2" />
 
     <TextView
-        android:id="@+id/tvStatus"
-        android:layout_width="250dp"
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
         android:layout_height="0px"
         android:layout_weight="1"
         android:textSize="14sp" />
@@ -58,5 +58,5 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="0.2" />
 </LinearLayout>
