@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        FirebaseUser fbUser = refAuth.getCurrentUser();
-        uId = fbUser.getUid();
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
@@ -83,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
-
-        lvTasks.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-        lvTasks.setOnItemClickListener(this);
 
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         fId = settings.getString("fId", null);
@@ -102,6 +97,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         inProgressTasks = new ArrayList<>();
         toDoAdapter = new TaskAdapter(this, toDoTasks);
         inProgressAdapter = new TaskAdapter(this, inProgressTasks);
+
+        lvTasks.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        lvTasks.setOnItemClickListener(this);
+
+        FirebaseUser fbUser = refAuth.getCurrentUser();
+        uId = fbUser.getUid();
         tasksRef = refFamily.child(fId).child("currentFamilyTasks");
         if(tasksRef!=null){
             tasksRef.addValueEventListener(new ValueEventListener() {
@@ -173,13 +174,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-        Task chosenTask = (Task) lvTasks.getItemAtPosition(i);
-        if(chosenTask.getIsTaken()){
+        //Task chosenTask = (Task) lvTasks.getItemAtPosition(i);
+        //if(chosenTask.getIsTaken()){
 
-        }
-        else{
+        //}
+        //else{
 
-        }
+        //}
     }
 
     private void updateTaskListView() {
