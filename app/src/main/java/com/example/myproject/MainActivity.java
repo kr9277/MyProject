@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lvTasks;
-    Button btnLogOut, btnNewTask;
+    Button btnLogOut, btnNewTask, btnPoints;
     Switch swWhichList;
     TextView tvBebi, tvLebi, tvTitle5, tvHiName;
 
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         btnLogOut = findViewById(R.id.btnLogOut);
         btnNewTask = findViewById(R.id.btnNewTask);
+        btnPoints = findViewById(R.id.btnPoints);
         tvBebi = findViewById(R.id.tvBebi);
         tvLebi = findViewById(R.id.tvLebi);
         lvTasks = findViewById(R.id.lvTasks);
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    //טיפול בשגיאה
+
                 }
             });
         }
@@ -178,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             builder.setPriority(Notification.PRIORITY_HIGH);
         }
 
-        builder.setSmallIcon(R.drawable.ic_launcher_foreground) // סמל ברירת מחדל
+        builder.setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("נפתחה משימה חדשה!")
                 .setContentText(task.getDisc())
                 .setAutoCancel(true);
@@ -279,6 +280,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = new Intent(this, OpenTaskActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    public void openPoints(View view){
+        Intent intent = new Intent(this, PointsActivity.class);
+        startActivity(intent);
     }
 
 
