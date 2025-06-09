@@ -15,6 +15,15 @@
         android:layout_weight="0.2" />
 
     <TextView
+        android:id="@+id/tvHiName"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="0.5"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
         android:id="@+id/tvTitle5"
         android:layout_width="204dp"
         android:layout_height="0px"

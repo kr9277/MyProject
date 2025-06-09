@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ListView lvTasks;
     Button btnLogOut, btnNewTask;
     Switch swWhichList;
-    TextView tvBebi, tvLebi, tvTitle5;
+    TextView tvBebi, tvLebi, tvTitle5, tvHiName;
 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private FirebaseUser fbUser;
     DatabaseReference tasksRef;
 
-    //AlertDialog.Builder adb;
+    AlertDialog.Builder adb;
 
     public static User user;
     public static Family family;
@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         tvLebi = findViewById(R.id.tvLebi);
         lvTasks = findViewById(R.id.lvTasks);
         tvTitle5 = findViewById(R.id.tvTitle5);
+        tvHiName = findViewById(R.id.tvHiName);
         swWhichList  = findViewById(R.id.swWhichList);
         taskTypes = new ArrayList<String>();
         toDoTasks = new ArrayList<>();
@@ -103,6 +104,22 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         FirebaseUser fbUser = refAuth.getCurrentUser();
         uId = fbUser.getUid();
+        refUser.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                user = snapshot.getValue(User.class);
+                if (user != null && user.getName() != null) {
+                    tvHiName.setText("שלום " + user.getName() + "!");
+                } else {
+                    tvHiName.setText("שלום משתמש!");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                tvHiName.setText("שלום משתמש (שגיאה בטעינה)");
+            }
+        });
         tasksRef = refFamily.child(fId).child("currentFamilyTasks");
         if(tasksRef!=null){
             tasksRef.addValueEventListener(new ValueEventListener() {
@@ -174,13 +191,51 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-        //Task chosenTask = (Task) lvTasks.getItemAtPosition(i);
-        //if(chosenTask.getIsTaken()){
+        Task chosenTask = (Task) lvTasks.getItemAtPosition(i);
+        if(!chosenTask.getIsTaken()){
+            adb = new AlertDialog.Builder(this);
+            adb.setTitle("רוצה לתפוס את המטלה?");
 
-        //}
-        //else{
+            adb.setPositiveButton("כן", (dialog, which) -> {
+                toDoTasks.remove(chosenTask);
+                inProgressTasks.add(chosenTask);
+                toDoAdapter.notifyDataSetChanged();
+                inProgressAdapter.notifyDataSetChanged();
+                updateTaskListView();
+                chosenTask.setTaken(true);
+                chosenTask.setResponsible(MainActivity.user.getName());
+                refFamily.child(fId).child("currentFamilyTasks")
+                        .child(chosenTask.getTId()).setValue(chosenTask);
+            });
 
-        //}
+            adb.setNegativeButton("ביטול", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            AlertDialog ad = adb.create();
+            ad.show();
+        }
+        else{
+            adb = new AlertDialog.Builder(this);
+            adb.setTitle("רוצה לסגור את המטלה?");
+            adb.setPositiveButton("כן", (dialog, which) -> {
+                int currentPoints = MainActivity.user.getPoints(); // ודא שיש getPoints()
+                int taskPoints = chosenTask.getPoints();
+                MainActivity.user.setPoints(currentPoints + taskPoints); //static variable
+                refUser.child(MainActivity.user.getuId()).setValue(MainActivity.user);
+                refFamily.child(fId).child("currentFamilyTasks")
+                        .child(chosenTask.getTId()).removeValue();
+                inProgressTasks.remove(chosenTask);
+                inProgressAdapter.notifyDataSetChanged();
+                updateTaskListView();
+            });
+            adb.setNegativeButton("ביטול", (dialog, which) -> {
+                dialog.dismiss();
+            });
+
+            AlertDialog ad = adb.create();
+            ad.show();
+        }
     }
 
     private void updateTaskListView() {
