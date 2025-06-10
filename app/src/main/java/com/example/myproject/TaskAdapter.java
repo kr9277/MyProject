@@ -17,6 +17,7 @@ public class TaskAdapter extends ArrayAdapter<Task> {
     private Context context;
     private List<Task> tasks;
 
+
     public TaskAdapter(@NonNull Context context, @NonNull List<Task> tasks) {
         super(context, 0, tasks);
         this.context = context;

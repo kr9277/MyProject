@@ -35,7 +35,7 @@ public class PointsActivity extends AppCompatActivity {
         Log.d("PointsActivity", "fId = " + fId);
 
         if (fId != null) {
-            FirebaseDatabase.getInstance().getReference("Family").child(fId).child("users")
+            FirebaseDatabase.getInstance().getReference("Family").child(fId).child("uIds")
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

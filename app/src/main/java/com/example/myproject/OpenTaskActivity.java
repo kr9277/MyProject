@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import android.widget.Toast;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -35,6 +36,7 @@ public class OpenTaskActivity extends AppCompatActivity {
     TextView tvTitleTime, tvTitle4, tvMsg1;
     EditText etDisc, etPoints;
     Button btnTime, btnOpenTask, btnClean, btnBack;
+    String uId;
 
     Date time;
     SharedPreferences settings;
@@ -56,6 +58,8 @@ public class OpenTaskActivity extends AppCompatActivity {
         btnClean = findViewById(R.id.btnClean);
         btnBack = findViewById(R.id.btnBack);
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        FirebaseUser fbUser = refAuth.getCurrentUser();
+        uId = fbUser.getUid();
     }
     public void clean(View view) {
         etDisc.setText("");
@@ -101,7 +105,12 @@ public class OpenTaskActivity extends AppCompatActivity {
     };
 
     public void createTask(View view) {
-        if(etDisc.getText()==null || etPoints.getText()==null || time==null){
+        boolean isParent = settings.getBoolean("isParent", false);
+        Log.i("isParent", String.valueOf(isParent));
+        if(!isParent){
+            tvMsg1.setText("Only parent can open tasks");
+        }
+        else if(etDisc.getText()==null || etPoints.getText()==null || time==null){
             tvMsg1.setText("Please fill all fields");
         }
         else{
@@ -109,42 +118,33 @@ public class OpenTaskActivity extends AppCompatActivity {
             int points = Integer.parseInt(etPoints.getText().toString().trim());
             String fId = settings.getString("fId", null);
             String tId = refFamily.child(fId).child("currentFamilyTasks").push().getKey();
-            FirebaseUser fbUser = refAuth.getCurrentUser();
-            String uId = fbUser.getUid();
             Task task = new Task(tId, time, disc, points, fId, uId);
             refFamily.child(fId).child("currentFamilyTasks").child(tId).setValue(task);
             tvMsg1.setText("Task created successfully");
-            Log.i("TaskId", tId);
+            Log.i("tId", tId);
+            Toast.makeText(this, "tId = " + tId, Toast.LENGTH_SHORT).show();
 
-            //ך מקפיצים התראה לשאר המשפחה? הקפצתי התראה רק למשתמש הזה שפתח את המטלה החדשה, אי
-            Log.i("setAlarm", "setAlarm");
-            ALARM_RQST_CODE++;
-            Intent intent = new Intent(this, AlarmReciever.class);
-            intent.putExtra("msg",String.valueOf(ALARM_RQST_CODE)+" TOD");
-            alarmIntent = PendingIntent.getBroadcast(this,
-                    ALARM_RQST_CODE, intent, PendingIntent.FLAG_IMMUTABLE);
-            alarmMgr = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
-            alarmMgr.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), alarmIntent);
+            //------
+            long endMillis = task.getEndTime().getTime();
+            Log.i("CreateTask", "tId before intent: " + tId);
+            Log.i("CreateTask", "fId before intent: " + fId);
+            Intent intentApp = new Intent(getApplicationContext(), AlarmReciever.class);
+            intentApp.putExtra("tId", tId);
+            intentApp.putExtra("fId", fId);
 
-//            String uId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-//            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(uId).child("shouldNotify");
-//
-//            ref.addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot snapshot) {
-//                    Boolean shouldNotify = snapshot.getValue(Boolean.class);
-//                    if (shouldNotify != null && shouldNotify) {
-//                        showInstantNotification("יש לך הודעה חדשה!", "בדוק את האפליקציה");
-//                        ref.setValue(false); // לאפס כדי שהתראה לא תופיע שוב
-//                    }
-//                }
-//                @Override
-//                public void onCancelled(DatabaseError error) { }
-//            });
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), tId.hashCode(),
+                    intentApp,
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+            );
 
-            //לא בטוח שהגעתי לפה
-            intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+            alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    endMillis,
+                    pendingIntent
+            );
+            //Intent intent = new Intent(this, MainActivity.class);
+            //startActivity(intent);
             }
         }
     }

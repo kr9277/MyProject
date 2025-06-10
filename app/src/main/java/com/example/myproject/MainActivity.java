@@ -4,14 +4,18 @@ import static com.example.myproject.FBref.refAuth;
 import static com.example.myproject.FBref.refFamily;
 import static com.example.myproject.FBref.refUser;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +34,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView lvTasks;
@@ -144,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         } else {
                             toDoTasks.add(task);
                         }
+                        scheduleTaskDeadlineAlarm(task);
                     }
                     toDoAdapter.notifyDataSetChanged();
                     inProgressAdapter.notifyDataSetChanged();
@@ -158,6 +165,28 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         swWhichList.setOnCheckedChangeListener((buttonView, isChecked) -> updateTaskListView());
         updateTaskListView();
         Log.i("TasksFirebase", "number of tasks to do: " + inProgressTasks.size() + ", to do: " + toDoTasks.size());
+    }
+
+    private void scheduleTaskDeadlineAlarm(Task task) {
+        long currentTime = System.currentTimeMillis();
+        long endTime = task.getEndTime().getTime();
+
+        if (endTime <= currentTime) return;
+
+        Intent intent = new Intent(this, AlarmReciever.class);
+        intent.putExtra("tId", task.getTId());
+        intent.putExtra("fId", fId); // אפשר גם לא לשלוח אם שמור ב-SharedPreferences
+        intent.putExtra("msg", "המשימה \"" + task.getDisc() + "\" לא הושלמה בזמן!");
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                task.getTId().hashCode(), // מזהה ייחודי
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, endTime, pendingIntent);
     }
 
     //@Override
@@ -259,24 +288,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void openNewTask(View view){
-        //adb = new AlertDialog.Builder(this);
-        //adb.setTitle("פתח מטלה:");
-
-        //final EditText etDisc = new EditText(this);
-        //etDisc.setHint("תיאור המטלה");
-        //adb.setView(etDisc);
-
-        //final EditText etPoints = new EditText(this);
-        //etPoints.setHint("כמה נקודות המטלה שווה?");
-        //adb.setView(etPoints);
-
-       // final EditText etTimeEnd = new EditText(this);
-        //etTimeEnd.setHint("תיאור המטלה");
-        //adb.setView(etTimeEnd);
-        //AlertDialog ad = adb.create();
-        //ad.show();
-
-
         Intent intent = new Intent(this, OpenTaskActivity.class);
         startActivity(intent);
         finish();

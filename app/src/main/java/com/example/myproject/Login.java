@@ -158,17 +158,24 @@ public class Login extends AppCompatActivity {
         if (fId == null) {
             Log.i("User missing a family", "Trying to get fId from DB...");
 
-            refUser.child(uId).child("fId").addListenerForSingleValueEvent(new ValueEventListener() {
+            refUser.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String fIdFromDb = snapshot.getValue(String.class);
+
+                    boolean isParent = snapshot.child("parent").getValue(Boolean.class);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("isParent", isParent);
+                    editor.apply();
+
+                    Log.i("User is parent: " + isParent, "User is parent: " + isParent);
+                    String fIdFromDb = snapshot.child("fId").getValue(String.class);
                     if (fIdFromDb == null || fIdFromDb.isEmpty()) {
                         Log.i("User missing a family in db", "Redirecting to ChooseFamily...");
                         Intent intent = new Intent(Login.this, ChooseFamily.class);
                         startActivity(intent);
                         finish();
                     } else {
-                        SharedPreferences.Editor editor = settings.edit();
+                        editor = settings.edit();
                         editor.putString("fId", fIdFromDb);
                         editor.apply();
 

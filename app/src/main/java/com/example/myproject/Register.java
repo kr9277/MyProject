@@ -31,7 +31,7 @@ public class Register extends AppCompatActivity {
     Button btnLoginBack, btnRegister;
     TextView tvTitle, tvPass, tvMsg, tvName, tvEmail;
     EditText etName, etPass, etEmail;
-    CheckBox cbSave;
+    CheckBox cbSave, cbParent;
 
     SharedPreferences settings;
     SharedPreferences.Editor editor;
@@ -52,6 +52,7 @@ public class Register extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmailHead);
         etPass = findViewById(R.id.etPass);
         cbSave = findViewById(R.id.cbSave);
+        cbParent = findViewById(R.id.cbParent);
         tvPass = findViewById(R.id.tvPass);
 
         settings = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -63,6 +64,7 @@ public class Register extends AppCompatActivity {
         String password = etPass.getText().toString();
         editor = settings.edit();
         editor.putBoolean("save", cbSave.isChecked());
+        editor.putBoolean("parent", cbParent.isChecked());
         editor.commit();
         if(email.isEmpty() || password.isEmpty()){
             tvMsg.setText("Please fill all fields");
