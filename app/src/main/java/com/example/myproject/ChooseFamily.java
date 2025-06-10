@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class ChooseFamily extends AppCompatActivity {
-    TextView tvMsg, tvTitle, tvFamilyName, tvFamilyAddress, tvJoin, tvCreate;
+    TextView tvTitle, tvFamilyName, tvFamilyAddress, tvJoin, tvCreate;
     EditText etEmailHead, etFamilyName, etFamilyAddress;
     Button btnJoin, btnCreate;
 
@@ -52,7 +53,6 @@ public class ChooseFamily extends AppCompatActivity {
         setContentView(R.layout.activity_choose_family);
         btnJoin = findViewById(R.id.btnJoin);
         btnCreate = findViewById(R.id.btnCreate);
-        tvMsg = findViewById(R.id.tvMsg);
         tvTitle = findViewById(R.id.tvTitle);
         tvFamilyName = findViewById(R.id.tvFamilyName);
         tvFamilyAddress = findViewById(R.id.tvFamilyAddress);
@@ -80,7 +80,7 @@ public class ChooseFamily extends AppCompatActivity {
             refUser.child(uId).child("fId").setValue(fId);
             refUser.child(uId).child("parent").setValue(true);
             // update user fid and parent = true
-            tvMsg.setText("Family created successfully\nBy: "+email);
+            Toast.makeText(this, "Family created successfully by" + email, Toast.LENGTH_SHORT).show();
             Log.i("FamilyId", fId);
 
             editor = settings.edit();

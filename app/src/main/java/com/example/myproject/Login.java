@@ -36,7 +36,7 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class Login extends AppCompatActivity {
     Button btnRegisterBack, btnLogin;
-    TextView tvTitle, tvPass, tvEmail, tvMsg;
+    TextView tvTitle, tvPass, tvEmail;
     EditText etPass, etEmail;
     CheckBox cbSave;
 
@@ -51,7 +51,6 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         btnRegisterBack = findViewById(R.id.btnRegisterBack);
         btnLogin = findViewById(R.id.btnLogin);
-        tvMsg = findViewById(R.id.tvMsg);
         tvTitle = findViewById(R.id.tvTitle);
         etEmail = findViewById(R.id.etEmailHead);
         etPass = findViewById(R.id.etPass);
@@ -92,7 +91,7 @@ public class Login extends AppCompatActivity {
         editor.putBoolean("save", cbSave.isChecked());
         editor.commit();
         if(email.isEmpty() || password.isEmpty()){
-            tvMsg.setText("Please fill all fields");
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
         } else {
             ProgressDialog pd = new ProgressDialog(this);
             pd. setTitle("Connecting");
@@ -108,7 +107,7 @@ public class Login extends AppCompatActivity {
                                 Log.i("MainActivity", "signInWithEmailAndPassword:success");
                                 FirebaseUser fbUser = refAuth.getCurrentUser();
                                 if (fbUser != null) {
-                                    tvMsg.setText("User logged in successfully\nUid: " + fbUser.getUid());
+                                    Toast.makeText(Login.this, "User logged in successfully, Uid: " + fbUser.getUid(), Toast.LENGTH_SHORT).show();
                                     loadUserFamily(fbUser);
                                 }
                             }
@@ -117,13 +116,13 @@ public class Login extends AppCompatActivity {
                                 Log.i("MainActivity", "signInWithEmail:failure", task.getException());
                                 Exception exp = task.getException();
                                 if (exp instanceof FirebaseAuthInvalidUserException){
-                                    tvMsg.setText("Invalid email address.");
+                                    Toast.makeText(Login.this, "Invalid email address.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseAuthInvalidCredentialsException) {
-                                    tvMsg.setText("General authentication failure.");
+                                    Toast.makeText(Login.this, "General authentication failure.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseNetworkException) {
-                                    tvMsg.setText("Network error. Please check your connection and try again.");
+                                    Toast.makeText(Login.this, "Network error. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    tvMsg.setText("An error occurred. Please try again later.");
+                                    Toast.makeText(Login.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -154,14 +153,11 @@ public class Login extends AppCompatActivity {
     private void loadUserFamily(FirebaseUser fbUser) {
         String uId = fbUser.getUid();
         String fId = settings.getString("fId", null);
-
         if (fId == null) {
             Log.i("User missing a family", "Trying to get fId from DB...");
-
             refUser.child(uId).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                     boolean isParent = snapshot.child("parent").getValue(Boolean.class);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean("isParent", isParent);
@@ -191,8 +187,7 @@ public class Login extends AppCompatActivity {
                     Toast.makeText(Login.this, "שגיאה בגישה לנתוני המשתמש", Toast.LENGTH_SHORT).show();
                 }
             });
-        } else {
-            // fId כבר קיים ב־SharedPreferences, נוכל להמשיך
+        } else {//fId is already in the shared preferences
             Intent intent = new Intent(Login.this, MainActivity.class);
             startActivity(intent);
             finish();

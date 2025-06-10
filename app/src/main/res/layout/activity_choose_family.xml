@@ -30,17 +30,6 @@
         android:layout_weight="0.1" />
 
     <TextView
-        android:id="@+id/tvMsg"
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.2" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0px"
-        android:layout_weight="0.1" />
-
-    <TextView
         android:id="@+id/tvJoin"
         android:layout_width="370dp"
         android:layout_height="0px"

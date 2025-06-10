@@ -7,10 +7,8 @@ import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -18,7 +16,6 @@ import androidx.core.app.NotificationCompat;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AlarmReciever extends BroadcastReceiver {
@@ -36,21 +33,16 @@ public class AlarmReciever extends BroadcastReceiver {
             Log.i("AlarmReceiver", "Intent extra key: " + key + " = " + intent.getExtras().get(key));
         }
 
-        Toast.makeText(context, "tId = " + tId, Toast.LENGTH_SHORT).show();
         if (fId != null && tId != null){
-            Toast.makeText(context, "not null", Toast.LENGTH_SHORT).show();
             DatabaseReference ref = refFamily.child(fId).child("currentFamilyTasks").child(tId);
-            Toast.makeText(context, "ref = " + ref, Toast.LENGTH_SHORT).show();
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
                         Log.i("AlarmReceiver", "Task exists");
-                        Toast.makeText(context, "Task exists", Toast.LENGTH_SHORT).show();
                         Task task = snapshot.getValue(Task.class);
                         if (task != null) {
                             Log.i("AlarmReceiver", "Task description: " + task.getDisc());
-                            Toast.makeText(context, "call Showing notification", Toast.LENGTH_SHORT).show();
                             showNotification(context, task.getDisc());
                         }
                     }
@@ -59,7 +51,6 @@ public class AlarmReciever extends BroadcastReceiver {
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                     Log.e("AlarmReceiver", "Database error: " + error.getMessage());
-                    Toast.makeText(context, "Eror", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -68,7 +59,6 @@ public class AlarmReciever extends BroadcastReceiver {
     }
 
     private void showNotification(Context context, String description) {
-        Toast.makeText(context, "Showing notification", Toast.LENGTH_SHORT).show();
         try {
             if (context != null) {
                 Log.i("showNotification try", "showNotification try");
@@ -82,13 +72,12 @@ public class AlarmReciever extends BroadcastReceiver {
                         );
                         channel.setDescription("התראות על משימות שלא בוצעו בזמן");
                         notificationManager.createNotificationChannel(channel);
-
                         Log.i("Notification", "Notification channel created");
                     }
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
                             .setSmallIcon(android.R.drawable.ic_dialog_alert)
-                            .setContentTitle("משימה לא הושלמה בזמן")
+                            .setContentTitle("משימה לא בוצעה בזמן! עשה אותה או מחק והעלה מחדש")
                             .setContentText(description)
                             .setAutoCancel(true)
                             .setPriority(NotificationCompat.PRIORITY_HIGH);
@@ -99,7 +88,6 @@ public class AlarmReciever extends BroadcastReceiver {
             }
 
         } catch (Exception e) {
-            Toast.makeText(context, "Eror catch", Toast.LENGTH_SHORT).show();
             Log.e("Notification", "Failed to show notification", e);
         }
     }

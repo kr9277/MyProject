@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Register extends AppCompatActivity {
     Button btnLoginBack, btnRegister;
-    TextView tvTitle, tvPass, tvMsg, tvName, tvEmail;
+    TextView tvTitle, tvPass, tvName, tvEmail;
     EditText etName, etPass, etEmail;
     CheckBox cbSave, cbParent;
 
@@ -44,7 +45,6 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         btnLoginBack = findViewById(R.id.btnLoginBack);
         btnRegister = findViewById(R.id.btnRegister);
-        tvMsg = findViewById(R.id.tvMsg);
         tvName = findViewById(R.id.tvFamilyAddress);
         tvEmail = findViewById(R.id.tvEmail);
         tvTitle = findViewById(R.id.tvTitle);
@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
         editor.putBoolean("parent", cbParent.isChecked());
         editor.commit();
         if(email.isEmpty() || password.isEmpty()){
-            tvMsg.setText("Please fill all fields");
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
         } else {
             ProgressDialog pd = new ProgressDialog(this);
             pd. setTitle("Connecting");
@@ -89,9 +89,9 @@ public class Register extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
-                                                        tvMsg.setText("User created successfully in the database.");
+                                                        Toast.makeText(Register.this, "User created successfully in the database.", Toast.LENGTH_SHORT).show();
                                                     } else {
-                                                        tvMsg.setText("Failed to save user in the database.");
+                                                        Toast.makeText(Register.this, "Failed to save user in the database.", Toast.LENGTH_SHORT).show();
                                                         Log.e("Register", "Database error: ", task.getException());
                                                     }
                                                 }
@@ -107,17 +107,17 @@ public class Register extends AppCompatActivity {
                                 Log.i("MainActivity", "createUserWithEmailAndPassword:failure", task.getException());
                                 Exception exp = task.getException();
                                 if (exp instanceof FirebaseAuthInvalidUserException){
-                                    tvMsg.setText("Invalid email address.");
+                                    Toast.makeText(Register.this, "Invalid email address.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseAuthWeakPasswordException) {
-                                    tvMsg.setText("Password too weak.");
+                                    Toast.makeText(Register.this, "Password too weak.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseAuthUserCollisionException) {
-                                    tvMsg.setText("User already exists, please login or use another email.");
+                                    Toast.makeText(Register.this, "User already exists, please login or use another email.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseAuthInvalidCredentialsException) {
-                                    tvMsg.setText("General authentication failure.");
+                                    Toast.makeText(Register.this, "General authentication failure.", Toast.LENGTH_SHORT).show();
                                 } else if (exp instanceof FirebaseNetworkException) {
-                                    tvMsg.setText("Network error. Please check your connection and try again.");
+                                    Toast.makeText(Register.this, "Network error. Please check your connection and try again.", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    tvMsg.setText("An error occurred. Please try again later.");
+                                    Toast.makeText(Register.this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

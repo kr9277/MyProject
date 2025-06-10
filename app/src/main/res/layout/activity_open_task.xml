@@ -23,17 +23,6 @@
     <Space
         android:layout_width="match_parent"
         android:layout_height="0px"
-        android:layout_weight="0.3" />
-
-    <TextView
-        android:id="@+id/tvMsg1"
-        android:layout_width="400dp"
-        android:layout_height="0px"
-        android:layout_weight="0.7" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="0px"
         android:layout_weight="0.5" />
 
     <EditText

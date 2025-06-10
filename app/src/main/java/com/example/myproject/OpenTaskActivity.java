@@ -7,7 +7,6 @@ import static com.example.myproject.FBref.refUser;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class OpenTaskActivity extends AppCompatActivity {
-    TextView tvTitleTime, tvTitle4, tvMsg1;
+    TextView tvTitleTime, tvTitle4;
     EditText etDisc, etPoints;
     Button btnTime, btnOpenTask, btnClean, btnBack;
     String uId;
@@ -50,7 +49,6 @@ public class OpenTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_open_task);
         tvTitleTime = findViewById(R.id.tvTitleTime);
         tvTitle4 = findViewById(R.id.tvTitle4);
-        tvMsg1 = findViewById(R.id.tvMsg1);
         etDisc = findViewById(R.id.etDisc);
         etPoints = findViewById(R.id.etPoints);
         btnTime = findViewById(R.id.btnTime);
@@ -108,10 +106,10 @@ public class OpenTaskActivity extends AppCompatActivity {
         boolean isParent = settings.getBoolean("isParent", false);
         Log.i("isParent", String.valueOf(isParent));
         if(!isParent){
-            tvMsg1.setText("Only parent can open tasks");
+            Toast.makeText(this, "Only parent can open tasks", Toast.LENGTH_SHORT).show();
         }
         else if(etDisc.getText()==null || etPoints.getText()==null || time==null){
-            tvMsg1.setText("Please fill all fields");
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
         }
         else{
             String disc = etDisc.getText().toString();
@@ -120,9 +118,8 @@ public class OpenTaskActivity extends AppCompatActivity {
             String tId = refFamily.child(fId).child("currentFamilyTasks").push().getKey();
             Task task = new Task(tId, time, disc, points, fId, uId);
             refFamily.child(fId).child("currentFamilyTasks").child(tId).setValue(task);
-            tvMsg1.setText("Task created successfully");
+            Toast.makeText(this, "Task created successfully", Toast.LENGTH_SHORT).show();
             Log.i("tId", tId);
-            Toast.makeText(this, "tId = " + tId, Toast.LENGTH_SHORT).show();
 
             //------
             long endMillis = task.getEndTime().getTime();
@@ -143,8 +140,8 @@ public class OpenTaskActivity extends AppCompatActivity {
                     endMillis,
                     pendingIntent
             );
-            //Intent intent = new Intent(this, MainActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             }
         }
     }
