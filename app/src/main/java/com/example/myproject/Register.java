@@ -66,7 +66,7 @@ public class Register extends AppCompatActivity {
         editor.putBoolean("save", cbSave.isChecked());
         editor.putBoolean("parent", cbParent.isChecked());
         editor.commit();
-        if(email.isEmpty() || password.isEmpty()){
+        if(email.isEmpty() || password.isEmpty() || etName.getText().toString().isEmpty()){
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
         } else {
             ProgressDialog pd = new ProgressDialog(this);

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,12 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         this.context = context;
         this.tasks = tasks;
     }
+    public TaskAdapter(Context context) { //empty constructor
+        super(context, 0);
+        this.context = context;
+        this.tasks = new ArrayList<>();
+    }
+
     @NonNull
     @Override
     public View getView(int position, View view, @NonNull ViewGroup parent) {
@@ -40,5 +47,19 @@ public class TaskAdapter extends ArrayAdapter<Task> {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
         tvTime.setText("עד השעה: " + sdf.format(task.getEndTime()));
         return view;
+    }
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+        notifyDataSetChanged();
+    }
+    public void setContext(Context context) {
+        this.context = context;
+    }
+    public Context getContext() {
+        return context;
+
+    }
+    public List<Task> getTasks() {
+        return tasks;
     }
 }

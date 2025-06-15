@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                         Log.d("TaskDebug", "Task loaded: " + task.getDisc()+ ", taken: " + task.isTaken());
                         if (!task.isUserNotified(uId)) {
                             showNotification(task);
-                            task.setNotifiedForUser(uId, true); // פונקציה שתעדכן את המאפ ב-Task
+                            task.setNotifiedForUser(uId, true);
 
                             refFamily.child(fId).child("currentFamilyTasks").child(taskSnap.getKey()).setValue(task);
                         }
@@ -164,7 +164,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
         swWhichList.setOnCheckedChangeListener((buttonView, isChecked) -> updateTaskListView());
         updateTaskListView();
-        Log.i("TasksFirebase", "number of tasks to do: " + inProgressTasks.size() + ", to do: " + toDoTasks.size());
     }
 
     private void scheduleTaskDeadlineAlarm(Task task) {

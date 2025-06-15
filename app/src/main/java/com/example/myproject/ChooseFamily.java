@@ -106,7 +106,7 @@ public class ChooseFamily extends AppCompatActivity {
                         fId = child.getKey();
                     }
                 } else {
-                    //Toast.makeText(ChooseFamily.this, "No family found with that email.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChooseFamily.this, "No family found with that email.", Toast.LENGTH_SHORT).show();
                 }
                 if (fId != null){
                     DatabaseReference ref = refFamily.child(fId).child("uids");
@@ -114,7 +114,7 @@ public class ChooseFamily extends AppCompatActivity {
                         @Override
                         public void onComplete(DatabaseError error, DatabaseReference ref) {
                             if (error != null) {
-                                //System.out.println("Data could not be saved: " + error.getMessage());
+                                Toast.makeText(ChooseFamily.this, "Data could not be saved: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             } else {
                                 refUser.child(uId).child("fId").setValue(fId);
 

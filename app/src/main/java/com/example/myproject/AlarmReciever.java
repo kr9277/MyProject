@@ -54,8 +54,6 @@ public class AlarmReciever extends BroadcastReceiver {
                 }
             });
         }
-
-
     }
 
     private void showNotification(Context context, String description) {

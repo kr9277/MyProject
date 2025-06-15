@@ -1,0 +1,17 @@
+@startuml
+
+class FamilyUser {
+  - String name
+  - String email
+  - boolean isParent
+}
+
+class Task {
+  - String description
+  - Date endTime
+  - boolean isDone
+}
+
+FamilyUser --> Task : creates
+
+@enduml
